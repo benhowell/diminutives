@@ -32,7 +32,6 @@ object Trial{
     val ts = Vector[mutable.Map[String,String]]() ++ Random.shuffle(Configuration.getConfigList(config, "trials")
       .map(e => collection.mutable.Map(createTrial(e).toSeq : _*) ))
     (ts,ns).zipped foreach { (t,n) => {
-      //t("text") = t("text").replace("${name}", n)
       t("name") = n
       t("category") = c
     }}

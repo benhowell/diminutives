@@ -11,8 +11,6 @@ import net.benhowell.diminutives.core.EventStream
 import javafx.geometry.{VPos, HPos}
 import javafx.scene.Node
 import javafx.beans.value.{ObservableValue, ChangeListener}
-import scala.collection.immutable.HashMap
-
 
 /**
  * "TrialGridPane.fxml" Controller Class

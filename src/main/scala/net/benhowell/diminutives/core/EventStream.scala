@@ -1,7 +1,6 @@
 package net.benhowell.diminutives.core
 
 import akka.actor.{Actor, Props, ActorSystem}
-import scala.collection.immutable.HashMap
 
 /**
  * Created by Ben Howell [ben@benhowell.net] on 22-Mar-2014.

@@ -43,13 +43,13 @@ class DisplayManager(_resource: String) extends StackPane{
   }
 
   def setScreen(id: String, screen: Node): Boolean = {
-    if (screens.get(id) != null) {   //screen loaded
-      if (!getChildren().isEmpty()) {    //if there is more than one screen
-        getChildren().remove(0)         //remove the displayed screen
-        getChildren().add(0, screen)     //add the screen
+    if (screens.get(id) != null) {        //screen loaded
+      if (!getChildren().isEmpty()) {     //if there is more than one screen
+        getChildren().remove(0)           //remove the displayed screen
+        getChildren().add(0, screen)      //add the screen
       }
       else {
-        getChildren().add(screen)       //no one else been displayed, then just show
+        getChildren().add(screen)         //no one else been displayed, then just show
       }
       return true
     }
@@ -69,5 +69,4 @@ class DisplayManager(_resource: String) extends StackPane{
       return true
     }
   }
-
 }

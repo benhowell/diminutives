@@ -80,9 +80,6 @@ class Main extends Application {
     }*/
 
 
-
-
-
     /*else if (payload == "prev") {
       if (trials.prev == null) {
         println("no prev!")
@@ -101,9 +98,6 @@ class Main extends Application {
       println("msg: " + topic + " matched nothing")
 
   }*/
-
-
-
 
 
   // setup subscriptions
@@ -136,9 +130,6 @@ class Main extends Application {
     primaryStage.sizeToScene()
     //setMaximised(primaryStage)
   }
-
-
-
 
 
   def setMaximised(stage: Stage){
