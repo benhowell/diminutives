@@ -59,6 +59,7 @@ class Main extends Application {
   }
 
 
+
     /*if (payload == "next") {
       // FIXME - package up result and stick in vector for later, or...
       // FIXME - package up result and send to wherever we collect the results
@@ -98,6 +99,7 @@ class Main extends Application {
       println("msg: " + topic + " matched nothing")
 
   }*/
+
 
 
   // setup subscriptions
