@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<GridPane id="gridPane" fx:id="trialGridPane" gridLinesVisible="false" hgap="0.0" padding="$x1" prefHeight="600.0" prefWidth="800.0" vgap="0.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="net.benhowell.diminutives.controller.TrialGridPaneController">
+  <children>
+    <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+      <center>
+        <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" style="" />
+      </center>
+    </BorderPane>
+    <Label fx:id="label" alignment="TOP_CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="1014.0" scaleX="1.0" scaleY="1.0" style="-fx-padding: 0 70 0 70;" text="Label" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <font>
+        <Font size="30.0" />
+      </font>
+      <GridPane.margin>
+        <Insets fx:id="x1" />
+      </GridPane.margin>
+    </Label>
+    <TextField fx:id="textField" alignment="CENTER_LEFT" maxWidth="-Infinity" minHeight="-1.0" minWidth="-Infinity" prefWidth="640.0" style="-fx-font-size: 30.0;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <stylesheets>
+        <URL value="@style.css" />
+      </stylesheets>
+      <GridPane.margin>
+        <Insets fx:id="x2" />
+      </GridPane.margin>
+    </TextField>
+    <HBox alignment="BOTTOM_RIGHT" fillHeight="false" pickOnBounds="true" prefHeight="100.0" prefWidth="800.0" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <children>
+        <Label id="label" fx:id="validationLabel" prefHeight="30.0" prefWidth="568.0000999999975" text="Error: Please enter a name containing alphabetical characters only!" visible="false">
+          <stylesheets>
+            <URL value="@style.css" />
+          </stylesheets>
+        </Label>
+        <Button fx:id="prevButton" mnemonicParsing="false" text="&lt;- Back" />
+        <Separator prefWidth="5.0" />
+        <Button fx:id="nextButton" mnemonicParsing="false" text="Next -&gt;" />
+      </children>
+    </HBox>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="NEVER" prefWidth="5.0" />
+    <ColumnConstraints hgrow="NEVER" prefWidth="1014.0" />
+    <ColumnConstraints hgrow="NEVER" prefWidth="5.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints prefHeight="350.0" vgrow="NEVER" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" />
+    <RowConstraints minHeight="140.0" prefHeight="140.0" valignment="TOP" vgrow="NEVER" />
+    <RowConstraints minHeight="10.0" prefHeight="60.0" valignment="CENTER" vgrow="ALWAYS" />
+    <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+  </rowConstraints>
+</GridPane>

@@ -1,0 +1,43 @@
+.error {
+  -fx-border-color:red;
+  -fx-border-width:2;
+  -fx-background-color:#FFCCCC;
+
+}
+
+
+.label.validation_valid {
+  visibility: hidden;
+}
+.label.validation_error {
+ -fx-graphic: url("./icon/delete.png");
+  -fx-text-fill: red;
+  visibility: visible;
+}
+.label.validation_warning {
+ -fx-graphic: url("./icon/error.png");
+  -fx-text-fill: orange;
+  visibility: visible;
+}
+
+
+.text-field.validation_error {
+  /*-fx-font-size: 30pt;*/
+  -fx-background-color: red,
+       linear-gradient(
+        to bottom,
+        derive(red,70%) 5%,
+        derive(red,90%) 40%
+       );
+}
+
+.text-field.validation_warning {
+  /*-fx-font-size: 30pt;*/
+  -fx-background-color: orange,
+       linear-gradient(
+        to bottom,
+        derive(orange,70%) 5%,
+        derive(orange,90%) 40%
+       );
+}
+
