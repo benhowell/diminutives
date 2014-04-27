@@ -10,12 +10,12 @@
   visibility: hidden;
 }
 .label.validation_error {
- -fx-graphic: url("./icon/delete.png");
+  -fx-graphic: url("./icon/delete.png");
   -fx-text-fill: red;
   visibility: visible;
 }
 .label.validation_warning {
- -fx-graphic: url("./icon/error.png");
+  -fx-graphic: url("./icon/error.png");
   -fx-text-fill: orange;
   visibility: visible;
 }
@@ -41,3 +41,11 @@
        );
 }
 
+.separator {
+  visibility: hidden;
+}
+
+.paragraph {
+  -fx-font-family: "Helvetica";
+  -fx-font-size: 30px;
+}
