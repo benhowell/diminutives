@@ -21,7 +21,7 @@
 </children></TextFlow>
 
     <HBox alignment="CENTER_RIGHT" fillHeight="false" pickOnBounds="true" prefHeight="100.0" prefWidth="800.0" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
-      <children>
+      <children><Button fx:id="prevButton" mnemonicParsing="false" text="&lt;- Back" /><Separator prefWidth="5.0" stylesheets="@style.css" />
         <Button fx:id="nextButton" mnemonicParsing="false" text="Next -&gt;" />
       </children>
     </HBox>

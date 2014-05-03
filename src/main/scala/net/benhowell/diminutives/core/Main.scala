@@ -33,6 +33,8 @@ import javafx.stage.{Screen, Stage}
 import javafx.scene.{Group, Scene}
 import scala.collection.mutable
 import java.io.{File, FileOutputStream, PrintStream}
+import net.benhowell.example.{SCEventBus, Subscription, Actors}
+import akka.actor.ActorRef
 
 
 object Main {
@@ -43,43 +45,103 @@ object Main {
 
 class Main extends Application {
   val config = Configuration.loadConfig()
+
+  // init data sets
+  var intro = mutable.DoubleLinkedList[Map[String,String]]() ++
+    Intro.load(config, "diminutives.intro")
+  println("intro: " + intro)
+
   var examples = mutable.DoubleLinkedList[Map[String,String]]() ++
     Trial.loadExampleRun(config, "diminutives.examples")
-
   println("examples: " + examples)
 
   var trials = mutable.DoubleLinkedList[Map[String,String]]() ++
     Trial.createRandomTrialRun(config, "diminutives.blocks")
-
   println("trials: " + trials)
+
+
+  // set up subscribers
+  val introSubscriber = Actors.create(
+    classOf[Subscription], "introSubscriber",
+    (payload: Any, receiver: Any, sender: ActorRef) => payload match {
+      case "next" =>
+        intro.next.elem match {
+          case null => println("no next!")
+          case _ => intro = intro.next
+        }
+        //load(intro.elem)
+
+      case "prev" =>
+        intro.prev match {
+          case null => println("no prev!")
+          case _ => intro = intro.prev
+        }
+        //load(intro.elem)
+    }
+  )
+
+  val examplesSubscriber = Actors.create(
+    classOf[Subscription], "examplesSubscriber",
+    (payload: Any, receiver: Any, sender: ActorRef) => payload match {
+      case "next" =>
+        examples.next.elem match {
+          case null => println("no next!")
+          case _ => examples = examples.next
+        }
+        load(displayManager.loadScreen, examples.elem)
+
+      case "prev" =>
+        examples.prev match {
+          case null => println("no prev!")
+          case _ => examples = examples.prev
+        }
+        load(displayManager.loadScreen, examples.elem)
+    }
+  )
+
+  val trialsSubscriber = Actors.create(
+    classOf[Subscription], "trialsSubscriber",
+    (payload: Any, receiver: Any, sender: ActorRef) => payload match {
+      case "next" =>
+        trials.next.elem match {
+          case null => println("no next!")
+          case _ => trials = trials.next
+        }
+        load(displayManager.loadScreen, trials.elem)
+
+      case "prev" =>
+        trials.prev match {
+          case null => println("no prev!")
+          case _ => trials = trials.prev
+        }
+        load(displayManager.loadScreen, trials.elem)
+    }
+  )
+
+  // set up subscriptions
+  SCEventBus.subscribe(introSubscriber, "/event/introGridPane")
+  SCEventBus.subscribe(examplesSubscriber, "/event/trialGridPane")
+  SCEventBus.subscribe(trialsSubscriber, "/event/trialGridPane")
+
+
+
+
+
+  //EventStream.subscribe(Logger.onEvent(ps), "loggersubscriber")
+
 
   var stage: Stage = _
   var displayManager: DisplayManager = _
 
 
-  val onEvent = (topic: String, payload: Any) => payload match {
+  /*val onEvent = (topic: String, payload: Any) => payload match {
     case "next" => next()
     case "prev" => prev()
-  }
+  }*/
 
-  def next() = trials.next.elem match {
-    case null => println("no next!")
-    case _ => trials = trials.next
-      Platform.runLater(new Runnable() {
-        def run() {
-          displayManager.loadScreen(trials.elem)
-        }
-      })
-  }
 
-  def prev() = trials.prev match {
-    case null => println("no prev!")
-    case _ => trials = trials.prev
-      Platform.runLater(new Runnable() {
-        def run() {
-          displayManager.loadScreen(trials.elem)
-        }
-      })
+  def load(f: (Map[String,String]) => Unit, a: Map[String,String]) = {
+    Platform.runLater(new Runnable() { def run() { f(a) } })
   }
 
 
@@ -127,9 +189,9 @@ class Main extends Application {
 
 
   // setup subscriptions
-  val ps = new PrintStream(new FileOutputStream(new File("output.txt")))
-  EventStream.subscribe(Logger.onEvent(ps), "loggersubscriber")
-  EventStream.subscribe(onEvent, "mainsubscriber")
+  //val ps = new PrintStream(new FileOutputStream(new File("output.txt")))
+  //EventStream.subscribe(Logger.onEvent(ps), "loggersubscriber")
+  //EventStream.subscribe(onEvent, "mainsubscriber")
 
   override def start(primaryStage: Stage) {
     val title = Configuration.getConfigString(config, "diminutives.experiment")
@@ -142,7 +204,7 @@ class Main extends Application {
 
   override def stop(){
     super.stop()
-    Logger.stop(ps)
+    //Logger.stop(ps)
   }
 
 

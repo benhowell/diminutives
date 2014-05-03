@@ -35,9 +35,9 @@ import net.benhowell.diminutives.core.EventStream
 import javafx.geometry.{VPos, HPos}
 import javafx.scene.Node
 import javafx.beans.value.{ObservableValue, ChangeListener}
+import net.benhowell.example.{SCEventBus, Subscription, Actors}
 
 /**
- * "TrialGridPane.fxml" Controller Class
  * Created by Ben Howell [ben@benhowell.net] on 06-Mar-2014.
  */
 class TrialGridPaneController() extends Initializable {
@@ -50,6 +50,9 @@ class TrialGridPaneController() extends Initializable {
   @FXML private[controller] var textField: TextField = null
   @FXML private[controller] var borderPane: BorderPane = null
   @FXML private[controller] var validationLabel: Label = null
+
+  val trialGridPanepublisher = Actors.create(
+    classOf[Subscription], "trialGridPanePublisher", null)
 
   def update(text: String, image: Image){
     textField.clear()
@@ -77,13 +80,15 @@ class TrialGridPaneController() extends Initializable {
 
     nextButton.setOnAction(new EventHandler[ActionEvent]() {
       def handle(event: ActionEvent) {
-        EventStream.publish("uievent", "next")
+        SCEventBus.publish(("/event/trialGridPane", "next", trialGridPanepublisher))
+        //EventStream.publish("uievent", "next")
       }
     })
 
     prevButton.setOnAction(new EventHandler[ActionEvent]() {
       def handle(event: ActionEvent) {
-        EventStream.publish("uievent", "prev")
+        SCEventBus.publish(("/event/trialGridPane", "prev", trialGridPanepublisher))
+        //EventStream.publish("uievent", "prev")
       }
     })
   }

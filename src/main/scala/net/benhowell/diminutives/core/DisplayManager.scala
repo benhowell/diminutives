@@ -52,13 +52,15 @@ class DisplayManager(_resource: String) extends StackPane{
   loader.getController()
   val trialGridPaneController = loader.getController[TrialGridPaneController]
 
-  def loadScreen(trial: Map[String,String]){
+  val loadScreen = (trial: Map[String,String]) => {
     //Loads the fxml file, add the screen to the screens collection and
     //finally injects the screenPane to the controller.
     val img = new Image(trial("imagePath") + trial("imageName"))
     trialGridPaneController.update(trial("text").replace("${name}", trial("name")), img)
     addScreen(trial("id"), fxmlLoad)
   }
+
+
 
   def addScreen(id: String, screen: Node) {
     //Add the screen to the collection
