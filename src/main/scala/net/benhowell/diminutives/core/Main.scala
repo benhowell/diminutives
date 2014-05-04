@@ -28,13 +28,12 @@ package net.benhowell.diminutives.core
  * Created by Ben Howell [ben@benhowell.net] on 02-Mar-2014.
  */
 
-import javafx.application.{Platform, Application}
+import javafx.application.Application
 import javafx.stage.{Screen, Stage}
 import javafx.scene.{Group, Scene}
 import scala.collection.mutable
-import java.io.{File, FileOutputStream, PrintStream}
-import net.benhowell.example.{SCEventBus, Subscription, Actors}
 import akka.actor.ActorRef
+import net.benhowell.diminutives.controller.{ExampleGridPaneController, TrialGridPaneController}
 
 
 object Main {
@@ -45,6 +44,15 @@ object Main {
 
 class Main extends Application {
   val config = Configuration.loadConfig()
+
+  var stage: Stage = _
+
+  // init controllers
+  val trialGridPaneController = new TrialGridPaneController
+  val trialGridPaneLoader = trialGridPaneController.controllerLoader("TrialGridPane.fxml")
+
+  val exampleGridPaneController = new ExampleGridPaneController
+  val exampleGridPaneLoader = exampleGridPaneController.controllerLoader("TrialGridPane.fxml")
 
   // init data sets
   var intro = mutable.DoubleLinkedList[Map[String,String]]() ++
@@ -69,135 +77,67 @@ class Main extends Application {
           case null => println("no next!")
           case _ => intro = intro.next
         }
-        //load(intro.elem)
+        //introGridPaneController.update(intro.elem, introGridPaneLoader)
 
       case "prev" =>
         intro.prev match {
           case null => println("no prev!")
           case _ => intro = intro.prev
         }
-        //load(intro.elem)
+        //introGridPaneController.update(intro.elem, introGridPaneLoader)
     }
   )
 
-  val examplesSubscriber = Actors.create(
-    classOf[Subscription], "examplesSubscriber",
+  val exampleSubscriber = Actors.create(
+    classOf[Subscription], "exampleSubscriber",
     (payload: Any, receiver: Any, sender: ActorRef) => payload match {
       case "next" =>
         examples.next.elem match {
-          case null => println("no next!")
-          case _ => examples = examples.next
+          case null => trialGridPaneController.update(trials.head, trialGridPaneLoader)
+          case _ =>
+            examples = examples.next
+            exampleGridPaneController.update(examples.elem, exampleGridPaneLoader)
         }
-        load(displayManager.loadScreen, examples.elem)
-
       case "prev" =>
         examples.prev match {
           case null => println("no prev!")
-          case _ => examples = examples.prev
+          case _ =>
+            examples = examples.prev
+            exampleGridPaneController.update(examples.elem, exampleGridPaneLoader)
         }
-        load(displayManager.loadScreen, examples.elem)
     }
   )
 
-  val trialsSubscriber = Actors.create(
-    classOf[Subscription], "trialsSubscriber",
+  val trialSubscriber = Actors.create(
+    classOf[Subscription], "trialSubscriber",
     (payload: Any, receiver: Any, sender: ActorRef) => payload match {
       case "next" =>
         trials.next.elem match {
           case null => println("no next!")
-          case _ => trials = trials.next
+          case _ =>
+            trials = trials.next
+            trialGridPaneController.update(trials.elem, trialGridPaneLoader)
         }
-        load(displayManager.loadScreen, trials.elem)
-
       case "prev" =>
         trials.prev match {
           case null => println("no prev!")
-          case _ => trials = trials.prev
+          case _ =>
+            trials = trials.prev
+            trialGridPaneController.update(trials.elem, trialGridPaneLoader)
         }
-        load(displayManager.loadScreen, trials.elem)
     }
   )
 
   // set up subscriptions
   SCEventBus.subscribe(introSubscriber, "/event/introGridPane")
-  SCEventBus.subscribe(examplesSubscriber, "/event/trialGridPane")
-  SCEventBus.subscribe(trialsSubscriber, "/event/trialGridPane")
+  SCEventBus.subscribe(exampleSubscriber, "/event/exampleGridPaneController")
+  SCEventBus.subscribe(trialSubscriber, "/event/trialGridPaneController")
 
 
-
-
-
-  //EventStream.subscribe(Logger.onEvent(ps), "loggersubscriber")
-
-
-  var stage: Stage = _
-  var displayManager: DisplayManager = _
-
-
-  /*val onEvent = (topic: String, payload: Any) => payload match {
-    case "next" => next()
-    case "prev" => prev()
-  }*/
-
-
-  def load(f: (Map[String,String]) => Unit, a: Map[String,String]) = {
-    Platform.runLater(new Runnable() { def run() { f(a) } })
-  }
-
-
-
-    /*if (payload == "next") {
-      // FIXME - package up result and stick in vector for later, or...
-      // FIXME - package up result and send to wherever we collect the results
-
-
-      if (trials.next.elem == null) {
-        println("no next!")
-        // FIXME - package up result and stick in vector, then submit vector to wherever
-        //do a submit or ask them if they want to end the trial and submit or go back and review
-      }
-      else {
-        trials = trials.next
-        Platform.runLater(new Runnable() {
-          def run() {
-            displayManager.loadScreen(trials.elem)
-          }
-        })
-      }
-    }*/
-
-
-    /*else if (payload == "prev") {
-      if (trials.prev == null) {
-        println("no prev!")
-        //go back to previous screen run... e.g. personal info form
-      }
-      else {
-        trials = trials.prev
-        Platform.runLater(new Runnable() {
-          def run() {
-            displayManager.loadScreen(trials.elem)
-          }
-        })
-      }
-    }
-    else
-      println("msg: " + topic + " matched nothing")
-
-  }*/
-
-
-
-  // setup subscriptions
-  //val ps = new PrintStream(new FileOutputStream(new File("output.txt")))
-  //EventStream.subscribe(Logger.onEvent(ps), "loggersubscriber")
-  //EventStream.subscribe(onEvent, "mainsubscriber")
 
   override def start(primaryStage: Stage) {
     val title = Configuration.getConfigString(config, "diminutives.experiment")
-    displayManager = new DisplayManager("TrialGridPane.fxml")
-    //displayManager.loadScreen(trials.head)
-    displayManager.loadScreen(examples.head)
+    exampleGridPaneController.load(examples.head, exampleGridPaneLoader)
     init(primaryStage, title)
     primaryStage.show()
   }
@@ -211,7 +151,7 @@ class Main extends Application {
   def init(primaryStage: Stage, title: String) {
     stage = primaryStage
     val root = new Group()
-    root.getChildren.addAll(displayManager)
+    root.getChildren.addAll(Display)
     primaryStage.setTitle(title)
     primaryStage.centerOnScreen()
     primaryStage.setScene(new Scene(root, 800, 600))
