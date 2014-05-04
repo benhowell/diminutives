@@ -1,4 +1,4 @@
-package net.benhowell.example
+package net.benhowell.core
 
 import akka.actor.{Actor, ActorRef, Props, ActorSystem}
 

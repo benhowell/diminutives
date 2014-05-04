@@ -1,4 +1,4 @@
-package net.benhowell.example
+package net.benhowell.core
 
 import akka.util.Subclassification
 import akka.actor.ActorRef
