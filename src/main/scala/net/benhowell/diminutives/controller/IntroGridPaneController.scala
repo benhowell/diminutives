@@ -30,7 +30,7 @@ import javafx.scene.control.{TextArea, Label, Button}
 import java.net.URL
 import java.util.ResourceBundle
 import javafx.event.{ActionEvent, EventHandler}
-import net.benhowell.example.{Subscription, Actors, SCEventBus}
+import net.benhowell.diminutives.core.{SCEventBus, Actors, Subscription}
 
 /**
  * Created by Ben Howell [ben@benhowell.net] on 03-May-2014.
@@ -43,25 +43,26 @@ class IntroGridPaneController {
   @FXML private[controller] var introBodyTextArea: TextArea = null
   @FXML private[controller] var introHeadingLabel: Label = null
 
-  val introGridPanepublisher = Actors.create(
+  val introGridPanePublisher = Actors.create(
     classOf[Subscription], "introGridPanePublisher", null)
 
   def initialize(url: URL, rb: ResourceBundle) {
     println(this.getClass.getSimpleName + ".initialise")
+
     prevButton.setDisable(true)
+
+    nextButton.setOnAction(new EventHandler[ActionEvent]() {
+      def handle(event: ActionEvent) {
+        SCEventBus.publish(("/event/introGridPane", "next", introGridPanePublisher))
+        //EventStream.publish("/event/introGridPane", "next")
+      }
+    })
+
+    prevButton.setOnAction(new EventHandler[ActionEvent]() {
+      def handle(event: ActionEvent) {
+        SCEventBus.publish(("/event/introGridPane", "prev", introGridPanePublisher))
+        //EventStream.publish("/event/introGridPane", "prev")
+      }
+    })
   }
-
-  nextButton.setOnAction(new EventHandler[ActionEvent]() {
-    def handle(event: ActionEvent) {
-      SCEventBus.publish(("/event/introGridPane", "next", introGridPanepublisher))
-      //EventStream.publish("/event/introGridPane", "next")
-    }
-  })
-
-  prevButton.setOnAction(new EventHandler[ActionEvent]() {
-    def handle(event: ActionEvent) {
-      SCEventBus.publish(("/event/introGridPane", "prev", introGridPanepublisher))
-      //EventStream.publish("/event/introGridPane", "prev")
-    }
-  })
 }
