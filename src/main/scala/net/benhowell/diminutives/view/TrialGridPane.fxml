@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<GridPane id="gridPane" fx:id="trialGridPane" gridLinesVisible="false" hgap="0.0" padding="$x1" prefHeight="600.0" prefWidth="800.0" vgap="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.benhowell.diminutives.controller.TrialGridPaneController">
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<GridPane id="trialGridPane" fx:id="trialGridPane" gridLinesVisible="false" hgap="0.0" padding="$x1" prefHeight="600.0" prefWidth="800.0" vgap="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
       <center>
