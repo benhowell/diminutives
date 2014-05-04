@@ -1,4 +1,4 @@
-package net.benhowell.core
+package net.benhowell.diminutives.core
 
 import akka.actor.{Actor, ActorRef, Props, ActorSystem}
 
