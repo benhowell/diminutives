@@ -25,7 +25,7 @@
 package net.benhowell.diminutives.controller
 
 import net.benhowell.diminutives.core.{SCEventBus, Subscription, Actors}
-import javafx.event.{ActionEvent, EventHandler}
+import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.control.Button
 
