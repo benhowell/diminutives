@@ -72,4 +72,11 @@ object Trial{
     m.put("name", config.getString("name"))
     Map() ++ m
   }
+
+  def composeTrial(trial: Map[String, String]): (String, String, String) = {
+    val id = trial("id")
+    val text = trial("text").replace("${name}", trial("name"))
+    val imgPath = trial("imagePath") + trial("imageName")
+    (id, text, imgPath)
+  }
 }
