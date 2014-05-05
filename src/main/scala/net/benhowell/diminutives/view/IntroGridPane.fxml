@@ -16,7 +16,7 @@
       </GridPane.margin>
     </Label>
     <TextFlow prefHeight="200.0" prefWidth="200.0" styleClass="paragraph" stylesheets="@style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
-<children><TextArea fx:id="introBodyTextArea" prefHeight="400.0" prefWidth="800.0" styleClass="paragraph" wrapText="true" />
+<children><TextArea fx:id="introBodyTextArea" editable="false" focusTraversable="false" prefHeight="400.0" prefWidth="800.0" styleClass="paragraph" wrapText="true" />
 </children></TextFlow>
 
     <HBox alignment="CENTER_RIGHT" fillHeight="false" pickOnBounds="true" prefHeight="100.0" prefWidth="800.0" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
