@@ -40,9 +40,17 @@ object Intro {
 
   def createIntro(config: Config): Map[String,String] = {
     val m = new mutable.HashMap[String, String]()
+    m.put("id", config.getString("id"))
     m.put("label", config.getString("label"))
     m.put("text", config.getString("text"))
     Map() ++ m
+  }
+
+  def compose(intro: Map[String, String]): (String, String, String) = {
+    val id = intro("id")
+    val label = intro("label")
+    val text = intro("text")
+    (id, label, text)
   }
 
 }
