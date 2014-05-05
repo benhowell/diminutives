@@ -24,18 +24,18 @@
 
 package net.benhowell.diminutives.controller
 
-import javafx.fxml.FXML
+import javafx.fxml.{Initializable, FXML}
 import javafx.scene.layout.GridPane
 import javafx.scene.control.{TextArea, Label, Button}
 import java.net.URL
 import java.util.ResourceBundle
 import javafx.event.{ActionEvent, EventHandler}
-import net.benhowell.diminutives.core.{SCEventBus, Actors, Subscription}
+import net.benhowell.diminutives.core._
 
 /**
  * Created by Ben Howell [ben@benhowell.net] on 03-May-2014.
  */
-class IntroGridPaneController {
+class IntroGridPaneController(resource: String) extends ControllerLoader with Initializable{
 
   @FXML private[controller] var introGridPane : GridPane = null
   @FXML private[controller] var nextButton: Button = null
@@ -46,22 +46,36 @@ class IntroGridPaneController {
   val introGridPanePublisher = Actors.create(
     classOf[Subscription], "introGridPanePublisher", null)
 
+  val loader = controllerLoader(resource)
+
+  def load(intro: Map[String, String]) {
+    val (id, heading, text) = Intro.compose(intro)
+    introHeadingLabel.setText(heading)
+    introBodyTextArea.setText(text)
+    Display.loadScreen(id, loader)
+  }
+
+  def update(intro: Map[String, String]) {
+    val (id, heading, text) = Intro.compose(intro)
+    Display.fxRun( () => {
+      introHeadingLabel.setText(heading)
+      introBodyTextArea.setText(text)
+      Display.loadScreen(id, loader)
+    })
+  }
+
   def initialize(url: URL, rb: ResourceBundle) {
     println(this.getClass.getSimpleName + ".initialise")
-
-    prevButton.setDisable(true)
 
     nextButton.setOnAction(new EventHandler[ActionEvent]() {
       def handle(event: ActionEvent) {
         SCEventBus.publish(("/event/introGridPane", "next", introGridPanePublisher))
-        //EventStream.publish("/event/introGridPane", "next")
       }
     })
 
     prevButton.setOnAction(new EventHandler[ActionEvent]() {
       def handle(event: ActionEvent) {
         SCEventBus.publish(("/event/introGridPane", "prev", introGridPanePublisher))
-        //EventStream.publish("/event/introGridPane", "prev")
       }
     })
   }
