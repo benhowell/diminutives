@@ -24,27 +24,22 @@
 
 package net.benhowell.diminutives.controller
 
-import javafx.fxml.{FXML, Initializable}
+import javafx.fxml.FXML
 import javafx.scene.layout._
 import javafx.event.ActionEvent
 import javafx.scene.control.TextField
 import javafx.scene.image.Image
 import net.benhowell.diminutives.core._
-import javafx.geometry.{VPos, HPos}
-import javafx.scene.Parent
-import javafx.beans.value.{ObservableValue, ChangeListener}
-import java.io.IOException
+import javafx.geometry.VPos
+import javafx.beans.value.ChangeListener
 
 /**
  * Created by Ben Howell [ben@benhowell.net] on 06-Mar-2014.
  */
-class TrialGridPaneController() extends TrialGridPane {
+class TrialGridPaneController(resource: String) extends TrialGridPane {
 
-
-
+  val loader = controllerLoader(resource)
   val publisher = Actors.create(
     classOf[Subscription], "trialGridPaneEventPublisher", null)
   val channel = "/event/trialGridPaneController"
-
-
 }
