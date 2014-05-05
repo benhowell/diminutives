@@ -24,24 +24,23 @@
 
 package net.benhowell.diminutives.controller
 
-import javafx.fxml.{FXMLLoader, Initializable, FXML}
+import javafx.fxml.{Initializable, FXML}
 import javafx.scene.layout.{BorderPane, GridPane}
 import javafx.scene.control.{TextField, Label, Button}
 import javafx.scene.image.{Image, ImageView}
-import javafx.scene.{Parent, Node}
+import javafx.scene.Node
 import net.benhowell.diminutives.core._
 import java.net.URL
 import java.util.ResourceBundle
 import javafx.geometry.{VPos, HPos}
 import javafx.beans.value.{ObservableValue, ChangeListener}
 import javafx.event.{ActionEvent, EventHandler}
-import java.io.IOException
 import akka.actor.ActorRef
 
 /**
  * Created by Ben Howell [ben@benhowell.net] on 04-May-2014.
  */
-trait TrialGridPane extends Initializable{
+trait TrialGridPane extends ControllerLoader with Initializable{
 
   @FXML private[controller] var trialGridPane : GridPane = null
   @FXML private[controller] var nextButton: Button = null
@@ -54,37 +53,16 @@ trait TrialGridPane extends Initializable{
 
   val channel: String
   val publisher: ActorRef
+  val loader: Node
 
-  def controllerLoader(resource: String): Node = {
-    val r: URL = getClass.getResource("../view/" + resource)
-    if (r == null) {
-      throw new IOException("Cannot load resource: " + r)
-    }
-    val loader: FXMLLoader = new FXMLLoader(r)
-    loader.setController(this)
-    val fxmlLoad = loader.load().asInstanceOf[Parent]
-    //val fxmlLoad = loader.load().asInstanceOf[Parent]
-    //loader.getController()
-    fxmlLoad
-  }
-
-
-  def load(trial: Map[String, String], fxmlLoader: Node) {
-    val (id, text, imgPath) = Trial.composeTrial(trial)
-    textField.clear()
-    label.setText(text)
-    imageView.setImage(new Image(imgPath))
-    Display.loadScreen(id, fxmlLoader)
-  }
-
-  def update(trial: Map[String, String], fxmlLoader: Node) {
+  def update(trial: Map[String, String]) {
     println(s"trial: $trial")
-    val (id, text, imgPath) = Trial.composeTrial(trial)
+    val (id, text, imgPath) = Trial.compose(trial)
     Display.fxRun( () => {
       textField.clear()
       label.setText(text)
       imageView.setImage(new Image(imgPath))
-      Display.loadScreen(id, fxmlLoader)
+      Display.loadScreen(id, loader)
     })
   }
 
