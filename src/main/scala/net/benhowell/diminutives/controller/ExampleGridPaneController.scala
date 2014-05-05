@@ -24,18 +24,15 @@
 
 package net.benhowell.diminutives.controller
 
-import net.benhowell.diminutives.core.{SCEventBus, Subscription, Actors}
-import javafx.event.EventHandler
-import javafx.fxml.FXML
-import javafx.scene.control.Button
+import net.benhowell.diminutives.core.{Subscription, Actors}
 
 /**
  * Created by Ben Howell [ben@benhowell.net] on 04-May-2014.
  */
-class ExampleGridPaneController extends TrialGridPane {
+class ExampleGridPaneController(resource: String) extends TrialGridPane {
 
+  val loader = controllerLoader(resource)
   val publisher = Actors.create(
     classOf[Subscription], "exampleGridPaneEventPublisher", null)
   val channel = "/event/exampleGridPaneController"
-
 }
