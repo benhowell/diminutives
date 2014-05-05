@@ -33,8 +33,7 @@ import javafx.stage.{Screen, Stage}
 import javafx.scene.{Group, Scene}
 import scala.collection.mutable
 import akka.actor.ActorRef
-import net.benhowell.diminutives.controller.{ExampleGridPaneController, TrialGridPaneController}
-
+import net.benhowell.diminutives.controller.{IntroGridPaneController, ExampleGridPaneController, TrialGridPaneController}
 
 object Main {
   def main(args: Array[String]) {
@@ -48,11 +47,11 @@ class Main extends Application {
   var stage: Stage = _
 
   // init controllers
-  val trialGridPaneController = new TrialGridPaneController
-  val trialGridPaneLoader = trialGridPaneController.controllerLoader("TrialGridPane.fxml")
+  val introGridPaneController = new IntroGridPaneController("IntroGridPane.fxml")
 
-  val exampleGridPaneController = new ExampleGridPaneController
-  val exampleGridPaneLoader = exampleGridPaneController.controllerLoader("TrialGridPane.fxml")
+  val exampleGridPaneController = new ExampleGridPaneController("TrialGridPane.fxml")
+
+  val trialGridPaneController = new TrialGridPaneController("TrialGridPane.fxml")
 
   // init data sets
   var intro = mutable.DoubleLinkedList[Map[String,String]]() ++
@@ -67,24 +66,23 @@ class Main extends Application {
     Trial.createRandomTrialRun(config, "diminutives.blocks")
   println("trials: " + trials)
 
-
   // set up subscribers
   val introSubscriber = Actors.create(
     classOf[Subscription], "introSubscriber",
     (payload: Any, receiver: Any, sender: ActorRef) => payload match {
       case "next" =>
         intro.next.elem match {
-          case null => println("no next!")
+          case null => exampleGridPaneController.update(examples.head)
           case _ => intro = intro.next
+            introGridPaneController.update(intro.elem)
         }
-        //introGridPaneController.update(intro.elem, introGridPaneLoader)
-
       case "prev" =>
         intro.prev match {
           case null => println("no prev!")
-          case _ => intro = intro.prev
+          case _ =>
+            intro = intro.prev
+            introGridPaneController.update(intro.elem)
         }
-        //introGridPaneController.update(intro.elem, introGridPaneLoader)
     }
   )
 
@@ -93,17 +91,17 @@ class Main extends Application {
     (payload: Any, receiver: Any, sender: ActorRef) => payload match {
       case "next" =>
         examples.next.elem match {
-          case null => trialGridPaneController.update(trials.head, trialGridPaneLoader)
+          case null => trialGridPaneController.update(trials.head)
           case _ =>
             examples = examples.next
-            exampleGridPaneController.update(examples.elem, exampleGridPaneLoader)
+            exampleGridPaneController.update(examples.elem)
         }
       case "prev" =>
         examples.prev match {
-          case null => println("no prev!")
+          case null => introGridPaneController.update(intro.elem)
           case _ =>
             examples = examples.prev
-            exampleGridPaneController.update(examples.elem, exampleGridPaneLoader)
+            exampleGridPaneController.update(examples.elem)
         }
     }
   )
@@ -113,17 +111,17 @@ class Main extends Application {
     (payload: Any, receiver: Any, sender: ActorRef) => payload match {
       case "next" =>
         trials.next.elem match {
-          case null => println("no next!")
+          case null => println("no next! end the experiment and stuff")
           case _ =>
             trials = trials.next
-            trialGridPaneController.update(trials.elem, trialGridPaneLoader)
+            trialGridPaneController.update(trials.elem)
         }
       case "prev" =>
         trials.prev match {
-          case null => println("no prev!")
+          case null => exampleGridPaneController.update(examples.elem)
           case _ =>
             trials = trials.prev
-            trialGridPaneController.update(trials.elem, trialGridPaneLoader)
+            trialGridPaneController.update(trials.elem)
         }
     }
   )
@@ -137,7 +135,7 @@ class Main extends Application {
 
   override def start(primaryStage: Stage) {
     val title = Configuration.getConfigString(config, "diminutives.experiment")
-    exampleGridPaneController.load(examples.head, exampleGridPaneLoader)
+    introGridPaneController.load(intro.head)
     init(primaryStage, title)
     primaryStage.show()
   }
