@@ -127,7 +127,7 @@ class Main extends Application {
   )
 
   // set up subscriptions
-  SCEventBus.subscribe(introSubscriber, "/event/introGridPane")
+  SCEventBus.subscribe(introSubscriber, "/event/introGridPaneController")
   SCEventBus.subscribe(exampleSubscriber, "/event/exampleGridPaneController")
   SCEventBus.subscribe(trialSubscriber, "/event/trialGridPaneController")
 
