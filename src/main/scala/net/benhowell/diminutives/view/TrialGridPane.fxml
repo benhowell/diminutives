@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import java.net.URL?>
-<GridPane id="trialGridPane" fx:id="trialGridPane" gridLinesVisible="false" hgap="0.0" padding="$x1" prefHeight="600.0" prefWidth="800.0" vgap="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.text.*?>
+
+<GridPane id="trialGridPane" fx:id="trialGridPane" gridLinesVisible="false" hgap="0.0" padding="$x1" prefHeight="600.0" prefWidth="800.0" stylesheets="@style.css" vgap="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
       <center>
@@ -31,13 +33,9 @@
     </TextField>
     <HBox alignment="CENTER_RIGHT" fillHeight="false" pickOnBounds="true" prefHeight="100.0" prefWidth="800.0" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
       <children>
-        <Label id="label" fx:id="validationLabel" prefHeight="30.0" prefWidth="568.0000999999975" text="Error: Please enter a name containing alphabetical characters only!" visible="false">
-          <stylesheets>
-            <URL value="@style.css" />
-          </stylesheets>
-        </Label>
+        <Label id="label" fx:id="validationLabel" prefHeight="30.0" prefWidth="568.0000999999975" text="Error: Please enter a name containing alphabetical characters only!" visible="false" />
         <Button fx:id="prevButton" mnemonicParsing="false" text="&lt;- Back" />
-        <Separator fx:id="separator" prefWidth="5.0" stylesheets="@style.css" />
+        <Separator fx:id="separator" prefWidth="5.0" />
         <Button fx:id="nextButton" mnemonicParsing="false" text="Next -&gt;" />
       </children>
     </HBox>
