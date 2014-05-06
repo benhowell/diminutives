@@ -69,13 +69,13 @@ class IntroGridPaneController(resource: String) extends ControllerLoader with In
 
     nextButton.setOnAction(new EventHandler[ActionEvent]() {
       def handle(event: ActionEvent) {
-        SCEventBus.publish(("/event/introGridPane", "next", introGridPanePublisher))
+        SCEventBus.publish(("/event/introGridPaneController", "next", introGridPanePublisher))
       }
     })
 
     prevButton.setOnAction(new EventHandler[ActionEvent]() {
       def handle(event: ActionEvent) {
-        SCEventBus.publish(("/event/introGridPane", "prev", introGridPanePublisher))
+        SCEventBus.publish(("/event/introGridPaneController", "prev", introGridPanePublisher))
       }
     })
   }
