@@ -32,15 +32,13 @@ import java.io._
 object Logger {
 
   def onEvent(ps: PrintStream) = (topic: String, payload: Any) => {
-
-      println("yay Logger received message: " + topic)
-      try {
-        ps.println("[" + topic + "]" + topic)
-      }
-      catch {
-        case ioe: IOException => println("IOException: " + ioe.toString)
-        case e: IOException => println("Exception: " + e.toString)
-      }
+    try {
+      ps.println("[" + topic + "]" + topic)
+    }
+    catch {
+      case ioe: IOException => println("IOException: " + ioe.toString)
+      case e: IOException => println("Exception: " + e.toString)
+    }
   }
 
   def stop(ps: PrintStream) = ps.close()
