@@ -48,7 +48,7 @@ class IntroController(resource: String) extends ControllerLoader with Initializa
     classOf[Subscription], "introPublisher", null)
 
   val channel = "/event/introController"
-  val publisher =introPublisher
+  val publisher = introPublisher
 
   val loader = controllerLoader(resource)
 
@@ -70,17 +70,7 @@ class IntroController(resource: String) extends ControllerLoader with Initializa
 
   def initialize(url: URL, rb: ResourceBundle) {
     println(this.getClass.getSimpleName + ".initialise")
-
-    nextButton.setOnAction(new EventHandler[ActionEvent]() {
-      def handle(event: ActionEvent) {
-        SCEventBus.publish((channel, "next", publisher))
-      }
-    })
-
-    prevButton.setOnAction(new EventHandler[ActionEvent]() {
-      def handle(event: ActionEvent) {
-        SCEventBus.publish((channel, "prev", publisher))
-      }
-    })
+    ActionEvents.setButtonOnAction(nextButton, channel, "next", publisher)
+    ActionEvents.setButtonOnAction(prevButton, channel, "prev", publisher)
   }
 }
