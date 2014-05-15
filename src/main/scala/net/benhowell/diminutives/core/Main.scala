@@ -33,7 +33,7 @@ import javafx.stage.{Screen, Stage}
 import javafx.scene.{Group, Scene}
 import scala.collection.mutable
 import akka.actor.ActorRef
-import net.benhowell.diminutives.controller.{IntroGridPaneController, ExampleGridPaneController, TrialGridPaneController}
+import net.benhowell.diminutives.controller.{IntroController, ExampleController, TrialController}
 
 object Main {
   def main(args: Array[String]) {
@@ -47,23 +47,23 @@ class Main extends Application {
   var stage: Stage = _
 
   // init controllers
-  val introGridPaneController = new IntroGridPaneController("IntroGridPane.fxml")
+  val introController = new IntroController("IntroGridPane.fxml")
 
-  val exampleGridPaneController = new ExampleGridPaneController("TrialGridPane.fxml")
+  val exampleController = new ExampleController("TrialGridPane.fxml")
 
-  val trialGridPaneController = new TrialGridPaneController("TrialGridPane.fxml")
+  val trialController = new TrialController("TrialGridPane.fxml")
 
   // init data sets
   var intro = mutable.DoubleLinkedList[Map[String,String]]() ++
-    Intro.load(config, "diminutives.intro")
+    Intro.load(config, "experiment.intro")
   println("intro: " + intro)
 
   var examples = mutable.DoubleLinkedList[Map[String,String]]() ++
-    Trial.loadExampleRun(config, "diminutives.examples")
+    Trial.loadExampleRun(config, "experiment.examples")
   println("examples: " + examples)
 
   var trials = mutable.DoubleLinkedList[Map[String,String]]() ++
-    Trial.createRandomTrialRun(config, "diminutives.blocks")
+    Trial.createRandomTrialRun(config, "experiment.blocks")
   println("trials: " + trials)
 
   // set up subscribers
@@ -72,16 +72,16 @@ class Main extends Application {
     (payload: Any, receiver: Any, sender: ActorRef) => payload match {
       case "next" =>
         intro.next.elem match {
-          case null => exampleGridPaneController.update(examples.head)
+          case null => exampleController.update(examples.head)
           case _ => intro = intro.next
-            introGridPaneController.update(intro.elem)
+            introController.update(intro.elem)
         }
       case "prev" =>
         intro.prev match {
           case null => println("no prev!")
           case _ =>
             intro = intro.prev
-            introGridPaneController.update(intro.elem)
+            introController.update(intro.elem)
         }
     }
   )
@@ -91,17 +91,17 @@ class Main extends Application {
     (payload: Any, receiver: Any, sender: ActorRef) => payload match {
       case "next" =>
         examples.next.elem match {
-          case null => trialGridPaneController.update(trials.head)
+          case null => trialController.update(trials.head)
           case _ =>
             examples = examples.next
-            exampleGridPaneController.update(examples.elem)
+            exampleController.update(examples.elem)
         }
       case "prev" =>
         examples.prev match {
-          case null => introGridPaneController.update(intro.elem)
+          case null => introController.update(intro.elem)
           case _ =>
             examples = examples.prev
-            exampleGridPaneController.update(examples.elem)
+            exampleController.update(examples.elem)
         }
     }
   )
@@ -114,29 +114,28 @@ class Main extends Application {
           case null => println("no next! end the experiment and stuff")
           case _ =>
             trials = trials.next
-            trialGridPaneController.update(trials.elem)
+            trialController.update(trials.elem)
         }
       case "prev" =>
         trials.prev match {
-          case null => exampleGridPaneController.update(examples.elem)
+          case null => exampleController.update(examples.elem)
           case _ =>
             trials = trials.prev
-            trialGridPaneController.update(trials.elem)
+            trialController.update(trials.elem)
         }
     }
   )
 
   // set up subscriptions
-  SCEventBus.subscribe(introSubscriber, "/event/introGridPaneController")
-  SCEventBus.subscribe(exampleSubscriber, "/event/exampleGridPaneController")
-  SCEventBus.subscribe(trialSubscriber, "/event/trialGridPaneController")
+  SCEventBus.subscribe(introSubscriber, "/event/introController")
+  SCEventBus.subscribe(exampleSubscriber, "/event/exampleController")
+  SCEventBus.subscribe(trialSubscriber, "/event/trialController")
 
 
 
   override def start(primaryStage: Stage) {
-    val title = Configuration.getConfigString(config, "diminutives.experiment")
-    introGridPaneController.load(intro.head)
-    init(primaryStage, title)
+    introController.load(intro.head)
+    init(primaryStage, Configuration.getConfigString(config, "experiment.title"))
     primaryStage.show()
   }
 
