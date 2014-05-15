@@ -34,11 +34,11 @@ object Intro {
 
   def load(config: Config, item: String): Vector[Map[String,String]] = {
     val es = Vector[mutable.Map[String,String]]() ++ Configuration.getConfigList(config, item)
-      .map(e => collection.mutable.Map(createIntro(e).toSeq : _*) )
+      .map(e => collection.mutable.Map(create(e).toSeq : _*) )
     es.map(m => (m.toMap)).toVector
   }
 
-  def createIntro(config: Config): Map[String,String] = {
+  def create(config: Config): Map[String,String] = {
     val m = new mutable.HashMap[String, String]()
     m.put("id", config.getString("id"))
     m.put("label", config.getString("label"))
