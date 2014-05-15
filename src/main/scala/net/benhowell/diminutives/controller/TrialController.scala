@@ -36,10 +36,10 @@ import javafx.beans.value.ChangeListener
 /**
  * Created by Ben Howell [ben@benhowell.net] on 06-Mar-2014.
  */
-class TrialGridPaneController(resource: String) extends TrialGridPane {
+class TrialController(resource: String) extends TrialGridPane {
 
   val loader = controllerLoader(resource)
   val publisher = Actors.create(
-    classOf[Subscription], "trialGridPaneEventPublisher", null)
-  val channel = "/event/trialGridPaneController"
+    classOf[Subscription], "trialPublisher", null)
+  val channel = "/event/trialController"
 }

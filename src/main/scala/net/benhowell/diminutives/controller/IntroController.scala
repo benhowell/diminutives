@@ -31,11 +31,12 @@ import java.net.URL
 import java.util.ResourceBundle
 import javafx.event.{ActionEvent, EventHandler}
 import net.benhowell.diminutives.core._
+import akka.actor.ActorRef
 
 /**
  * Created by Ben Howell [ben@benhowell.net] on 03-May-2014.
  */
-class IntroGridPaneController(resource: String) extends ControllerLoader with Initializable{
+class IntroController(resource: String) extends ControllerLoader with Initializable{
 
   @FXML private[controller] var introGridPane : GridPane = null
   @FXML private[controller] var nextButton: Button = null
@@ -43,8 +44,11 @@ class IntroGridPaneController(resource: String) extends ControllerLoader with In
   @FXML private[controller] var introBodyTextArea: TextArea = null
   @FXML private[controller] var introHeadingLabel: Label = null
 
-  val introGridPanePublisher = Actors.create(
-    classOf[Subscription], "introGridPanePublisher", null)
+  val introPublisher = Actors.create(
+    classOf[Subscription], "introPublisher", null)
+
+  val channel = "/event/introController"
+  val publisher =introPublisher
 
   val loader = controllerLoader(resource)
 
@@ -69,13 +73,13 @@ class IntroGridPaneController(resource: String) extends ControllerLoader with In
 
     nextButton.setOnAction(new EventHandler[ActionEvent]() {
       def handle(event: ActionEvent) {
-        SCEventBus.publish(("/event/introGridPaneController", "next", introGridPanePublisher))
+        SCEventBus.publish((channel, "next", publisher))
       }
     })
 
     prevButton.setOnAction(new EventHandler[ActionEvent]() {
       def handle(event: ActionEvent) {
-        SCEventBus.publish(("/event/introGridPaneController", "prev", introGridPanePublisher))
+        SCEventBus.publish((channel, "prev", publisher))
       }
     })
   }
