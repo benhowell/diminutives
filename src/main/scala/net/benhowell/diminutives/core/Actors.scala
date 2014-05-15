@@ -19,15 +19,4 @@ object Actors {
     val actor = system.actorOf(props, name = name)
     actor
   }
-
-  /*// receive handlers
-  def onReceive = (payload: Any, receiver: Any, sender: ActorRef) => {
-    println(s"$sender -> $receiver: $payload")
-  }
-
-  def onReceive(log: (String) => Unit) =
-    (payload: Any, receiver: Any, sender: ActorRef) => {
-      log(s"$sender -> $receiver: $payload")
-      println(s"$sender -> $receiver: $payload")
-  }*/
 }
