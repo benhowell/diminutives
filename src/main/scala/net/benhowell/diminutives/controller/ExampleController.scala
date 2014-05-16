@@ -24,15 +24,18 @@
 
 package net.benhowell.diminutives.controller
 
-import net.benhowell.diminutives.core.{Subscription, Actors}
+import net.benhowell.diminutives.core.{ActionEvents, Subscription, Actors}
 
 /**
  * Created by Ben Howell [ben@benhowell.net] on 04-May-2014.
  */
-class ExampleGridPaneController(resource: String) extends TrialGridPane {
+class ExampleController(resource: String) extends TrialGridPane {
 
   val loader = controllerLoader(resource)
   val publisher = Actors.create(
-    classOf[Subscription], "exampleGridPaneEventPublisher", null)
-  val channel = "/event/exampleGridPaneController"
+    classOf[Subscription], "examplePublisher", null)
+  val channel = "/event/exampleController"
+
+  ActionEvents.setButtonOnAction(nextButton, channel, "next", publisher)
+  ActionEvents.setButtonOnAction(prevButton, channel, "prev", publisher)
 }
