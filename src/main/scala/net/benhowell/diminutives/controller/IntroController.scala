@@ -52,6 +52,9 @@ class IntroController(resource: String) extends ControllerLoader with Initializa
 
   val loader = controllerLoader(resource)
 
+  ActionEvents.setButtonOnAction(nextButton, channel, "next", publisher)
+  ActionEvents.setButtonOnAction(prevButton, channel, "prev", publisher)
+
   def load(intro: Map[String, String]) {
     val (id, heading, text) = Intro.compose(intro)
     introHeadingLabel.setText(heading)
@@ -70,7 +73,6 @@ class IntroController(resource: String) extends ControllerLoader with Initializa
 
   def initialize(url: URL, rb: ResourceBundle) {
     println(this.getClass.getSimpleName + ".initialise")
-    ActionEvents.setButtonOnAction(nextButton, channel, "next", publisher)
-    ActionEvents.setButtonOnAction(prevButton, channel, "prev", publisher)
+
   }
 }

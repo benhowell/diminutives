@@ -42,4 +42,8 @@ class TrialController(resource: String) extends TrialGridPane {
   val publisher = Actors.create(
     classOf[Subscription], "trialPublisher", null)
   val channel = "/event/trialController"
+
+
+  ActionEvents.setButtonOnAction(nextButton, channel, "next", publisher)
+  ActionEvents.setButtonOnAction(prevButton, channel, "prev", publisher)
 }

@@ -84,20 +84,6 @@ trait TrialGridPane extends ControllerLoader with Initializable{
         case _ => invalidInput
       }
     })
-
-    /*ActionEvents.setButtonOnAction(nextButton, channel, "next", publisher)
-    ActionEvents.setButtonOnAction(prevButton, channel, "prev", publisher)*/
-    nextButton.setOnAction(new EventHandler[ActionEvent]() {
-      def handle(event: ActionEvent) {
-        SCEventBus.publish((channel, "next", publisher))
-      }
-    })
-
-    prevButton.setOnAction(new EventHandler[ActionEvent]() {
-      def handle(event: ActionEvent) {
-        SCEventBus.publish((channel, "prev", publisher))
-      }
-    })
   }
 
   def reset(){
