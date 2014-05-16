@@ -10,12 +10,12 @@
 
 <GridPane id="trialGridPane" fx:id="trialGridPane" gridLinesVisible="false" hgap="0.0" padding="$x1" prefHeight="600.0" prefWidth="800.0" stylesheets="@style.css" vgap="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="0">
       <center>
         <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" style="" />
       </center>
     </BorderPane>
-    <Label fx:id="label" alignment="TOP_CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="800.0" scaleX="1.0" scaleY="1.0" style="-fx-padding: 0 70 0 70;" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <Label fx:id="label" alignment="TOP_CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="800.0" scaleX="1.0" scaleY="1.0" style="-fx-padding: 0 70 0 70;" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="2">
       <font>
         <Font size="30.0" />
       </font>
@@ -23,7 +23,7 @@
         <Insets fx:id="x1" />
       </GridPane.margin>
     </Label>
-    <TextField fx:id="textField" alignment="CENTER_LEFT" maxWidth="-Infinity" minHeight="-1.0" minWidth="-Infinity" prefWidth="640.0" style="-fx-font-size: 30.0;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+    <TextField fx:id="textField" alignment="CENTER_LEFT" maxWidth="-Infinity" minHeight="-1.0" minWidth="-Infinity" prefWidth="640.0" style="-fx-font-size: 30.0;" GridPane.halignment="CENTER" GridPane.rowIndex="3">
       <stylesheets>
         <URL value="@style.css" />
       </stylesheets>
@@ -31,7 +31,7 @@
         <Insets fx:id="x2" />
       </GridPane.margin>
     </TextField>
-    <HBox alignment="CENTER_RIGHT" fillHeight="false" pickOnBounds="true" prefHeight="100.0" prefWidth="800.0" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+    <HBox alignment="CENTER_RIGHT" fillHeight="false" pickOnBounds="true" prefHeight="100.0" prefWidth="800.0" visible="true" GridPane.rowIndex="4">
       <children>
         <Label id="label" fx:id="validationLabel" prefHeight="30.0" prefWidth="568.0000999999975" text="Error: Please enter a name containing alphabetical characters only!" visible="false" />
         <Button fx:id="prevButton" mnemonicParsing="false" text="&lt;- Back" />
@@ -41,9 +41,7 @@
     </HBox>
   </children>
   <columnConstraints>
-    <ColumnConstraints hgrow="NEVER" prefWidth="5.0" />
-    <ColumnConstraints hgrow="NEVER" prefWidth="800.0" />
-    <ColumnConstraints hgrow="NEVER" prefWidth="5.0" />
+    <ColumnConstraints hgrow="NEVER" maxWidth="800.0" minWidth="800.0" prefWidth="800.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints prefHeight="350.0" vgrow="NEVER" />
