@@ -41,15 +41,12 @@ class IntroController(resource: String) extends ControllerLoader with Initializa
   @FXML private[controller] var introGridPane : GridPane = null
   @FXML private[controller] var nextButton: Button = null
   @FXML private[controller] var prevButton: Button = null
-  @FXML private[controller] var introBodyTextArea: TextArea = null
-  @FXML private[controller] var introHeadingLabel: Label = null
+  @FXML private[controller] var bodyTextArea: TextArea = null
+  @FXML private[controller] var headingLabel: Label = null
 
-  val introPublisher = Actors.create(
+  val publisher = Actors.create(
     classOf[Subscription], "introPublisher", null)
-
   val channel = "/event/introController"
-  val publisher = introPublisher
-
   val loader = controllerLoader(resource)
 
   ActionEvents.setButtonOnAction(nextButton, channel, "next", publisher)
@@ -57,16 +54,16 @@ class IntroController(resource: String) extends ControllerLoader with Initializa
 
   def load(intro: Map[String, String]) {
     val (id, heading, text) = Intro.compose(intro)
-    introHeadingLabel.setText(heading)
-    introBodyTextArea.setText(text)
+    headingLabel.setText(heading)
+    bodyTextArea.setText(text)
     Display.loadScreen(id, loader)
   }
 
   def update(intro: Map[String, String]) {
     val (id, heading, text) = Intro.compose(intro)
     Display.fxRun( () => {
-      introHeadingLabel.setText(heading)
-      introBodyTextArea.setText(text)
+      headingLabel.setText(heading)
+      bodyTextArea.setText(text)
       Display.loadScreen(id, loader)
     })
   }
