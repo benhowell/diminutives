@@ -30,6 +30,10 @@ import javafx.scene.control._
 import net.benhowell.diminutives.core._
 import java.net.URL
 import java.util.ResourceBundle
+import javafx.collections.{FXCollections, ObservableList}
+import scala.collection.JavaConverters._
+import scala.io.Source
+import java.io.File
 
 /**
  * Created by Ben Howell [ben@benhowell.net] on 17-May-2014.
@@ -39,14 +43,14 @@ class DetailController(resource: String) extends ControllerLoader with Initializ
   @FXML private[controller] var detailGridPane : GridPane = null
   @FXML private[controller] var nextButton: Button = null
   @FXML private[controller] var prevButton: Button = null
-  @FXML private[controller] var sexComboBox: ComboBox = null
-  @FXML private[controller] var ageComboBox: ComboBox = null
-  @FXML private[controller] var yearComboBox: ComboBox = null
-  @FXML private[controller] var monthComboBox: ComboBox = null
-  @FXML private[controller] var firstLanguageComboBox: ComboBox = null
-  @FXML private[controller] var languageTableView: TableView = null
-  @FXML private[controller] var languageColumn: TableColumn = null
-  @FXML private[controller] var fluencyColumn: TableColumn = null
+  @FXML private[controller] var sexComboBox: ComboBox[String] = null
+  @FXML private[controller] var ageComboBox: ComboBox[Int] = null
+  @FXML private[controller] var yearComboBox: ComboBox[Int] = null
+  @FXML private[controller] var monthComboBox: ComboBox[Int] = null
+  @FXML private[controller] var firstLanguageComboBox: ComboBox[String] = null
+  @FXML private[controller] var languageTableView: TableView[ComboBox[String]] = null
+  @FXML private[controller] var languageColumn: TableColumn[TableView[ComboBox[String]],ComboBox[String]] = null
+  @FXML private[controller] var fluencyColumn: TableColumn[TableView[ComboBox[String]],ComboBox[String]] = null
 
   val publisher = Actors.create(
     classOf[Subscription], "detailPublisher", null)
@@ -57,14 +61,13 @@ class DetailController(resource: String) extends ControllerLoader with Initializ
   ActionEvents.setButtonOnAction(prevButton, channel, "prev", publisher)
 
 
-  /*def load(intro: Map[String, String]) {
-    val (id, heading, text) = Intro.compose(intro)
-    headingLabel.setText(heading)
-    bodyTextArea.setText(text)
-    Display.loadScreen(id, loader)
+  def load() {
+    Display.fxRun( () => {
+      Display.loadScreen("detail-1", loader)
+    })
   }
 
-  def update(intro: Map[String, String]) {
+  /*def update(intro: Map[String, String]) {
     val (id, heading, text) = Intro.compose(intro)
     Display.fxRun( () => {
       headingLabel.setText(heading)
@@ -76,6 +79,22 @@ class DetailController(resource: String) extends ControllerLoader with Initializ
   def initialize(url: URL, rb: ResourceBundle) {
     println(this.getClass.getSimpleName + ".initialise")
 
+    sexComboBox.getItems().addAll(
+      "Female",
+      "Male",
+      "Other"
+    )
+
+    val yearList: ObservableList[Int] = FXCollections.observableList(List(1 until 100:_*).asJava)
+    ageComboBox.setItems(yearList)
+    yearComboBox.setItems(yearList)
+    val monthList: ObservableList[Int] = FXCollections.observableList(List(1 until 12:_*).asJava)
+    monthComboBox.setItems(monthList)
+
+    val langList: ObservableList[String] = FXCollections.observableList(
+      Source.fromURL(getClass().getResource("/iso639-1.txt")).getLines().toList.asJava
+    )
+    firstLanguageComboBox.getItems().addAll(langList)
   }
 
 }
