@@ -1,0 +1,164 @@
+Abkhazian
+Afar
+Afrikaans
+Albanian
+Amharic
+Arabic
+Aragonese
+Armenian
+Assamese
+Aymara
+Azerbaijani
+Bashkir
+Basque
+Bengali (Bangla)
+Bhutani
+Bihari
+Bislama
+Breton
+Bulgarian
+Burmese
+Byelorussian (Belarusian)
+Cambodian
+Catalan
+Cherokee
+Chewa
+Chinese
+Chinese (Simplified)
+Chinese (Traditional)
+Corsican
+Croatian
+Czech
+Danish
+Divehi
+Dutch
+Edo
+English
+Esperanto
+Estonian
+Faeroese
+Farsi
+Fiji
+Finnish
+Flemish
+French
+Frisian
+Fulfulde
+Galician
+Gaelic (Scottish)
+Gaelic (Manx)
+Georgian
+German
+Greek
+Greenlandic
+Guarani
+Gujarati
+Haitian Creole
+Hausa
+Hawaiian
+Hebrew
+Hindi
+Hungarian
+Ibibio
+Icelandic
+Ido
+Igbo
+Indonesian
+Interlingua
+Interlingue
+Inuktitut
+Inupiak
+Irish
+Italian
+Japanese
+Javanese
+Kannada
+Kanuri
+Kashmiri
+Kazakh
+Kinyarwanda (Ruanda)
+Kirghiz
+Kirundi (Rundi)
+Konkani
+Korean
+Kurdish
+Laothian
+Latin
+Latvian (Lettish)
+Limburgish (Limburger)
+Lingala
+Lithuanian
+Macedonian
+Malagasy
+Malay
+Malayalam
+Maltese
+Maori
+Marathi
+Moldavian
+Mongolian
+Nauru
+Nepali
+Norwegian
+Occitan
+Oriya
+Oromo (Afaan Oromo)
+Papiamentu
+Pashto (Pushto)
+Polish
+Portuguese
+Punjabi
+Quechua
+Rhaeto-Romance
+Romanian
+Russian
+Sami (Lappish)
+Samoan
+Sangro
+Sanskrit
+Serbian
+Serbo-Croatian
+Sesotho
+Setswana
+Shona
+Sichuan Yi
+Sindhi
+Sinhalese
+Siswati
+Slovak
+Slovenian
+Somali
+Spanish
+Sundanese
+Swahili (Kiswahili)
+Swedish
+Syriac
+Tagalog
+Tajik
+Tamazight
+Tamil
+Tatar
+Telugu
+Thai
+Tibetan
+Tigrinya
+Tonga
+Tsonga
+Turkish
+Turkmen
+Twi
+Uighur
+Ukrainian
+Urdu
+Uzbek
+Venda
+Vietnamese
+Volapuk
+Wallon
+Welsh
+Wolof
+Xhosa
+Yi
+Yiddish
+Yoruba
+Zulu
