@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane id="introGridPane" fx:id="introGridPane" gridLinesVisible="false" hgap="0.0" padding="$x1" prefHeight="600.0" prefWidth="800.0" stylesheets="@style.css" vgap="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane id="introGridPane" fx:id="detailGridPane" gridLinesVisible="false" hgap="0.0" padding="$x1" prefHeight="600.0" prefWidth="800.0" stylesheets="@style.css" vgap="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <Label fx:id="introHeadingLabel" alignment="TOP_CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="118.0" prefWidth="800.0" scaleX="1.0" scaleY="1.0" style="-fx-padding: 0 70 0 70;" text="Personal Details" textAlignment="CENTER" wrapText="true">
+    <Label fx:id="headingLabel" alignment="TOP_CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="118.0" prefWidth="800.0" scaleX="1.0" scaleY="1.0" style="-fx-padding: 0 70 0 70;" text="Personal Details" textAlignment="CENTER" wrapText="true">
       <font>
         <Font size="38.0" />
       </font>
@@ -22,19 +22,19 @@
         <Button fx:id="nextButton" mnemonicParsing="false" text="Next -&gt;" />
       </children>
     </HBox><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
-<children><Label styleClass="paragraph" text="Sex" /><Separator prefWidth="15.0" /><ComboBox prefWidth="150.0" promptText="Select" />
+<children><Label styleClass="paragraph" text="Sex" /><Separator prefWidth="15.0" /><ComboBox fx:id="sexComboBox" prefWidth="150.0" promptText="Select" />
 </children></HBox><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
-<children><Label styleClass="paragraph" text="Age" /><Separator prefHeight="2.0" prefWidth="12.0" /><ComboBox prefHeight="25.0" prefWidth="150.0" promptText="Select" />
+<children><Label styleClass="paragraph" text="Age" /><Separator prefHeight="2.0" prefWidth="12.0" /><ComboBox fx:id="ageComboBox" prefHeight="25.0" prefWidth="150.0" promptText="Select" />
 </children></HBox><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
-<children><Label styleClass="paragraph" text="How long have you lived in Australia?" /><Separator prefWidth="12.0" /><ComboBox prefHeight="25.0" prefWidth="85.0" promptText="Years" /><Separator prefWidth="12.0" /><ComboBox prefHeight="25.0" prefWidth="95.0" promptText="Months" />
+<children><Label styleClass="paragraph" text="How long have you lived in Australia?" /><Separator prefWidth="12.0" /><ComboBox fx:id="yearComboBox" prefHeight="25.0" prefWidth="85.0" promptText="Years" /><Separator prefWidth="12.0" /><ComboBox fx:id="monthComboBox" prefHeight="25.0" prefWidth="95.0" promptText="Months" />
 </children></HBox><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
-<children><Label styleClass="paragraph" text="What is your first language?" /><Separator prefWidth="12.0" /><ComboBox prefWidth="150.0" promptText="Select" />
+<children><Label styleClass="paragraph" text="What is your first language?" /><Separator prefWidth="12.0" /><ComboBox fx:id="firstLanguageComboBox" prefWidth="150.0" promptText="Select" />
 </children></HBox><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
 <children><Label styleClass="paragraph" text="What other languages do you speak?" />
-</children></HBox><TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
+</children></HBox><TableView fx:id="languageTableView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
   <columns>
-    <TableColumn minWidth="120.0" prefWidth="120.0" text="Language" />
-    <TableColumn minWidth="120.0" prefWidth="120.0" text="Fluency" />
+    <TableColumn fx:id="languageColumn" minWidth="120.0" prefWidth="120.0" text="Language" />
+    <TableColumn fx:id="fluencyColumn" minWidth="120.0" prefWidth="120.0" text="Fluency" />
   </columns>
 </TableView>
   </children>
