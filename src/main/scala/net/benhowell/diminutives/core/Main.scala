@@ -33,7 +33,7 @@ import javafx.stage.{Screen, Stage}
 import javafx.scene.{Group, Scene}
 import scala.collection.mutable
 import akka.actor.ActorRef
-import net.benhowell.diminutives.controller.{IntroController, ExampleController, TrialController}
+import net.benhowell.diminutives.controller.{DetailController, IntroController, ExampleController, TrialController}
 
 object Main {
   def main(args: Array[String]) {
@@ -48,10 +48,9 @@ class Main extends Application {
 
   // init controllers
   val introController = new IntroController("IntroGridPane.fxml")
-
   val exampleController = new ExampleController("TrialGridPane.fxml")
-
   val trialController = new TrialController("TrialGridPane.fxml")
+  val detailController = new DetailController("PersonalDetailGridPane.fxml")
 
   // init data sets
   var intro = mutable.DoubleLinkedList[Map[String,String]]() ++
@@ -111,7 +110,7 @@ class Main extends Application {
     (payload: Any, receiver: Any, sender: ActorRef) => payload match {
       case "next" =>
         trials.next.elem match {
-          case null => println("no next! end the experiment and stuff")
+          case null => detailController.load()
           case _ =>
             trials = trials.next
             trialController.update(trials.elem)
@@ -126,10 +125,19 @@ class Main extends Application {
     }
   )
 
+  val detailSubscriber = Actors.create(
+    classOf[Subscription], "detailSubscriber",
+    (payload: Any, receiver: Any, sender: ActorRef) => payload match {
+      case "next" => println("Go to thanks page... submit and quit")
+      case "prev" => trialController.update(trials.elem)
+    }
+  )
+
   // set up subscriptions
   SCEventBus.subscribe(introSubscriber, "/event/introController")
   SCEventBus.subscribe(exampleSubscriber, "/event/exampleController")
   SCEventBus.subscribe(trialSubscriber, "/event/trialController")
+  SCEventBus.subscribe(detailSubscriber, "/event/detailController")
 
 
 
