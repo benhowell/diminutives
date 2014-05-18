@@ -85,16 +85,17 @@ class DetailController(resource: String) extends ControllerLoader with Initializ
       "Other"
     )
 
-    val yearList: ObservableList[Int] = FXCollections.observableList(List(1 until 100:_*).asJava)
+    val yearList: ObservableList[Int] = FXCollections.observableList(List(0 to 100:_*).asJava)
     ageComboBox.setItems(yearList)
     yearComboBox.setItems(yearList)
-    val monthList: ObservableList[Int] = FXCollections.observableList(List(1 until 12:_*).asJava)
+    val monthList: ObservableList[Int] = FXCollections.observableList(List(0 to 12:_*).asJava)
     monthComboBox.setItems(monthList)
 
     val langList: ObservableList[String] = FXCollections.observableList(
       Source.fromURL(getClass().getResource("/iso639-1.txt")).getLines().toList.asJava
     )
     firstLanguageComboBox.getItems().addAll(langList)
+    firstLanguageComboBox.setValue("English")
   }
 
 }
