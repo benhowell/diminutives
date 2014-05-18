@@ -22,13 +22,13 @@
         <Button fx:id="nextButton" mnemonicParsing="false" text="Next -&gt;" />
       </children>
     </HBox><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
-<children><Label styleClass="paragraph" text="Sex" /><Separator prefWidth="15.0" /><ComboBox fx:id="sexComboBox" prefWidth="150.0" promptText="Select" />
+<children><Label styleClass="paragraph" text="Sex" /><Separator prefHeight="2.0" prefWidth="521.0" /><ComboBox fx:id="sexComboBox" prefHeight="25.0" prefWidth="164.0" promptText="?" />
 </children></HBox><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
-<children><Label styleClass="paragraph" text="Age" /><Separator prefHeight="2.0" prefWidth="12.0" /><ComboBox fx:id="ageComboBox" prefHeight="25.0" prefWidth="150.0" promptText="Select" />
+<children><Label styleClass="paragraph" text="Age" /><Separator prefHeight="3.0" prefWidth="518.0" /><ComboBox fx:id="ageComboBox" prefHeight="25.0" prefWidth="164.0" promptText="?" />
 </children></HBox><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
-<children><Label styleClass="paragraph" text="How long have you lived in Australia?" /><Separator prefWidth="12.0" /><ComboBox fx:id="yearComboBox" prefHeight="25.0" prefWidth="85.0" promptText="Years" /><Separator prefWidth="12.0" /><ComboBox fx:id="monthComboBox" prefHeight="25.0" prefWidth="95.0" promptText="Months" />
+<children><Label styleClass="paragraph" text="How long have you lived in Australia?" /><Separator prefWidth="12.0" /><ComboBox fx:id="yearComboBox" prefHeight="25.0" prefWidth="64.0" promptText="?" /><Label text=" yrs" /><Separator prefWidth="12.0" /><ComboBox fx:id="monthComboBox" prefHeight="25.0" prefWidth="64.0" promptText="?" /><Label text=" mths" />
 </children></HBox><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
-<children><Label styleClass="paragraph" text="What is your first language?" /><Separator prefWidth="12.0" /><ComboBox fx:id="firstLanguageComboBox" prefWidth="150.0" promptText="Select" />
+<children><Label styleClass="paragraph" text="What is your first language?" /><Separator prefHeight="3.0" prefWidth="154.0" /><ComboBox fx:id="firstLanguageComboBox" prefHeight="25.0" prefWidth="164.0" promptText="Select" />
 </children></HBox><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
 <children><Label styleClass="paragraph" text="What other languages do you speak?" />
 </children></HBox><TableView fx:id="languageTableView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
@@ -36,7 +36,7 @@
     <TableColumn fx:id="languageColumn" minWidth="120.0" prefWidth="120.0" text="Language" />
     <TableColumn fx:id="fluencyColumn" minWidth="120.0" prefWidth="120.0" text="Fluency" />
   </columns>
-</TableView>
+</TableView><Separator prefWidth="200.0" GridPane.valignment="BOTTOM" />
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="NEVER" maxWidth="800.0" minWidth="800.0" prefWidth="800.0" />
