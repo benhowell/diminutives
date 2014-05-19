@@ -34,10 +34,10 @@ import javafx.collections.{ListChangeListener, ObservableList, FXCollections}
 import scala.collection.JavaConverters._
 import scala.io.Source
 import java.io.File
-import javafx.scene.control.cell.{PropertyValueFactory, ComboBoxTableCell}
+import javafx.scene.control.cell.{ComboBoxTableCell, PropertyValueFactory}
 import javafx.beans.value.ObservableValue
 import javafx.util.{Callback, StringConverter}
-import javafx.beans.property.ReadOnlyObjectWrapper
+import javafx.beans.property.{SimpleObjectProperty, ReadOnlyObjectWrapper}
 import javafx.scene.control.TableColumn.CellDataFeatures
 import javafx.event.{EventHandler, ActionEvent}
 import scala.collection.mutable.ArrayBuffer
@@ -49,10 +49,22 @@ import javafx.collections.ListChangeListener.Change
  */
 
 class LangRow(langs: List[String], fluency: List[String]) {
-  val langList: ComboBoxTableCell[StringConverter[String], String] =
-    new ComboBoxTableCell(FXCollections.observableList(langs.asJava))
-  val fluencyList: ComboBoxTableCell[StringConverter[String], String] =
-    new ComboBoxTableCell(FXCollections.observableList(langs.asJava))
+
+  val langList = new SimpleObjectProperty[List[String]]
+  val fluencyList = new SimpleObjectProperty[List[String]]
+
+  /*val langList: ComboBoxTableCell[String, String] =
+    new ComboBoxTableCell(FXCollections.observableList(langs.asJava))*/
+  /*val fluencyList: ComboBoxTableCell[StringConverter[String], String] =
+    new ComboBoxTableCell(FXCollections.observableList(langs.asJava))*/
+
+  def langListProperty: SimpleObjectProperty[List[String]] = {
+    langList
+  }
+
+  def fluencyListProperty: SimpleObjectProperty[List[String]] = {
+    fluencyList
+  }
 }
 
 class DetailController(resource: String) extends ControllerLoader with Initializable{
@@ -66,8 +78,8 @@ class DetailController(resource: String) extends ControllerLoader with Initializ
   @FXML private[controller] var monthComboBox: ComboBox[Int] = null
   @FXML private[controller] var firstLanguageComboBox: ComboBox[String] = null
   @FXML private[controller] var languageTableView: TableView[LangRow] = null
-  @FXML private[controller] var languageColumn: TableColumn[String, String] = null
-  @FXML private[controller] var fluencyColumn: TableColumn[String, String] = null
+  @FXML private[controller] var languageColumn: TableColumn[LangRow, String] = null
+  @FXML private[controller] var fluencyColumn: TableColumn[LangRow, String] = null
   @FXML private[controller] var addLanguageButton: Button = null
 
   val publisher = Actors.create(
@@ -127,9 +139,10 @@ class DetailController(resource: String) extends ControllerLoader with Initializ
     languageTableView.setEditable(true)
     languageTableView.setItems(data)
 
-    /*languageColumn.setCellValueFactory(new Callback[TableColumn.CellDataFeatures[String,String], ObservableValue[String]]() {
-      override def call(cdf: CellDataFeatures[String, String]): ObservableValue[String] = {
-        return new ReadOnlyObjectWrapper[String](cdf.getValue())
+    /*languageColumn.setCellValueFactory(new Callback[TableColumn.CellDataFeatures[LangRow,String], ObservableValue[String]]() {
+      override def call(cdf: CellDataFeatures[LangRow, String]): ObservableValue[String] = {
+        //return new ReadOnlyObjectWrapper[String](cdf.getValue())
+        return new ReadOnlyObjectWrapper(cdf.getValue().langList.getItem())
       }
 
     })*/
