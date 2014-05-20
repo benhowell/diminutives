@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
+<?import javafx.scene.text.Font?>
 <GridPane id="introGridPane" fx:id="detailGridPane" gridLinesVisible="false" hgap="0.0" padding="$x1" prefHeight="600.0" prefWidth="800.0" stylesheets="@style.css" vgap="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <Label fx:id="headingLabel" alignment="TOP_CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="118.0" prefWidth="800.0" scaleX="1.0" scaleY="1.0" style="-fx-padding: 0 70 0 70;" text="Personal Details" textAlignment="CENTER" wrapText="true">
@@ -29,14 +27,7 @@
 <children><Label styleClass="paragraph" text="How long have you lived in Australia?" /><Separator prefWidth="12.0" /><ComboBox fx:id="yearComboBox" prefHeight="25.0" prefWidth="64.0" promptText="?" /><Label text=" yrs" /><Separator prefWidth="12.0" /><ComboBox fx:id="monthComboBox" prefHeight="25.0" prefWidth="64.0" promptText="?" /><Label text=" mths" />
 </children></HBox><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
 <children><Label styleClass="paragraph" text="What is your first language?" /><Separator prefHeight="3.0" prefWidth="154.0" /><ComboBox fx:id="firstLanguageComboBox" prefHeight="25.0" prefWidth="164.0" promptText="Select" />
-</children></HBox><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
-<children><Label styleClass="paragraph" text="Do you speak any other languages?" /><Separator prefWidth="37.0" /><Button fx:id="addLanguageButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="164.0" text="Add Language..." />
-</children></HBox><TableView fx:id="languageTableView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="7">
-  <columns>
-    <TableColumn fx:id="languageColumn" minWidth="120.0" prefWidth="120.0" text="Language" />
-    <TableColumn fx:id="fluencyColumn" minWidth="120.0" prefWidth="120.0" text="Fluency" />
-  </columns>
-</TableView><Separator prefWidth="200.0" GridPane.valignment="BOTTOM" />
+</children></HBox><Separator prefWidth="200.0" GridPane.valignment="BOTTOM" />
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="NEVER" maxWidth="800.0" minWidth="800.0" prefWidth="800.0" />
