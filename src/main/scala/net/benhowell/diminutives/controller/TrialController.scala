@@ -24,14 +24,7 @@
 
 package net.benhowell.diminutives.controller
 
-import javafx.fxml.FXML
-import javafx.scene.layout._
-import javafx.event.ActionEvent
-import javafx.scene.control.TextField
-import javafx.scene.image.Image
 import net.benhowell.diminutives.core._
-import javafx.geometry.VPos
-import javafx.beans.value.ChangeListener
 
 /**
  * Created by Ben Howell [ben@benhowell.net] on 06-Mar-2014.

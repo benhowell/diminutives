@@ -34,7 +34,7 @@ import java.net.URL
 import java.util.ResourceBundle
 import javafx.geometry.{VPos, HPos}
 import javafx.beans.value.{ObservableValue, ChangeListener}
-import javafx.event.{ActionEvent, EventHandler}
+import javafx.event.ActionEvent
 import akka.actor.ActorRef
 
 /**
