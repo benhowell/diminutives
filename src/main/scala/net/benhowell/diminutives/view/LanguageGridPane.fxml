@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<GridPane id="introGridPane" fx:id="languageGridPane" gridLinesVisible="false" hgap="0.0" padding="$x1" prefHeight="600.0" prefWidth="800.0" stylesheets="@style.css" vgap="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <Label fx:id="headingLabel" alignment="TOP_CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="118.0" prefWidth="800.0" scaleX="1.0" scaleY="1.0" style="-fx-padding: 0 70 0 70;" text="Language Details" textAlignment="CENTER" wrapText="true">
+      <font>
+        <Font size="38.0" />
+      </font>
+      <GridPane.margin>
+        <Insets fx:id="x1" />
+      </GridPane.margin>
+    </Label>
+
+    <HBox alignment="CENTER_RIGHT" fillHeight="false" pickOnBounds="true" prefHeight="100.0" prefWidth="800.0" visible="true" GridPane.rowIndex="4">
+      <children><Button fx:id="prevButton" mnemonicParsing="false" text="&lt;- Back" /><Separator prefWidth="5.0" />
+        <Button fx:id="nextButton" mnemonicParsing="false" text="Next -&gt;" />
+      </children>
+    </HBox><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+<children><Label styleClass="paragraph" text="Do you speak any other languages?" /><Separator prefWidth="37.0" />
+</children></HBox><TableView fx:id="languageTableView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+  <columns>
+    <TableColumn fx:id="languageColumn" minWidth="120.0" prefWidth="350.0" text="Language" />
+    <TableColumn fx:id="fluencyColumn" minWidth="120.0" prefWidth="350.0" text="Fluency" /><TableColumn minWidth="100.0" prefWidth="100.0" />
+  </columns>
+</TableView><Separator prefWidth="200.0" GridPane.valignment="BOTTOM" /><HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+<children><Separator prefWidth="10.0" /><ComboBox fx:id="languageComboBox" prefWidth="180.0" promptText="Language" /><Separator prefWidth="160.0" /><ComboBox fx:id="fluencyComboBox" prefWidth="180.0" promptText="Fluency" /><Separator prefWidth="170.0" /><Button fx:id="addButton" mnemonicParsing="false" text="Add..." />
+</children></HBox>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="NEVER" maxWidth="800.0" minWidth="800.0" prefWidth="800.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="339.0" minHeight="60.0" prefHeight="60.0" vgrow="NEVER" />
+<RowConstraints maxHeight="414.0" minHeight="60.0" prefHeight="60.0" valignment="TOP" vgrow="NEVER" />
+<RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" valignment="TOP" vgrow="ALWAYS" />
+    <RowConstraints minHeight="55.0" prefHeight="322.0" valignment="TOP" vgrow="ALWAYS" />
+    <RowConstraints fillHeight="false" maxHeight="33.0" minHeight="33.0" prefHeight="33.0" vgrow="NEVER" />
+  </rowConstraints>
+</GridPane>
