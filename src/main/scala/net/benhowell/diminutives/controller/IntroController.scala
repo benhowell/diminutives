@@ -29,9 +29,8 @@ import javafx.scene.layout.GridPane
 import javafx.scene.control.{TextArea, Label, Button}
 import java.net.URL
 import java.util.ResourceBundle
-import javafx.event.{ActionEvent, EventHandler}
+import javafx.event.ActionEvent
 import net.benhowell.diminutives.core._
-import akka.actor.ActorRef
 
 /**
  * Created by Ben Howell [ben@benhowell.net] on 03-May-2014.
