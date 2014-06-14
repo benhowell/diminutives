@@ -24,6 +24,7 @@
 
 package net.benhowell.diminutives.controller
 
+import javafx.beans.value.{ObservableValue, ChangeListener}
 import javafx.fxml.{FXML, Initializable}
 import javafx.scene.layout.GridPane
 import javafx.scene.control._
@@ -31,12 +32,13 @@ import javafx.scene.control._
 import java.net.URL
 import java.util.ResourceBundle
 import javafx.collections.{ObservableList, FXCollections}
+import javax.security.auth.callback.Callback
 
 
 import scala.collection.JavaConverters._
 import scala.io.Source
-import javafx.scene.control.cell.PropertyValueFactory
-import javafx.beans.property.SimpleStringProperty
+import javafx.scene.control.cell.{CheckBoxTableCell, PropertyValueFactory}
+import javafx.beans.property.{BooleanProperty, SimpleBooleanProperty, SimpleStringProperty}
 
 import javafx.event.{EventHandler, ActionEvent}
 import java.util
@@ -51,6 +53,7 @@ class LangRow(l: String, f: String) {
 
   var language = new SimpleStringProperty(l)
   var fluency = new SimpleStringProperty(f)
+  var remove = new CheckBox()
 
   def getLanguage(): String = {
     language.get()
@@ -67,6 +70,14 @@ class LangRow(l: String, f: String) {
   def setFluency(f: String) {
     fluency.set(f)
   }
+
+  def getRemove(): Boolean = {
+    remove.isSelected()
+  }
+
+  def setRemove(b: Boolean) {
+    remove.setSelected(b)
+  }
 }
 
 class LanguageController(resource: String) extends ControllerLoader with Initializable{
@@ -78,6 +89,7 @@ class LanguageController(resource: String) extends ControllerLoader with Initial
   @FXML private[controller] var languageTableView: TableView[LangRow] = null
   @FXML private[controller] var languageColumn: TableColumn[LangRow, String] = null
   @FXML private[controller] var fluencyColumn: TableColumn[LangRow, String] = null
+  @FXML private[controller] var removeColumn: TableColumn[LangRow, CheckBox] = null
   @FXML private[controller] var languageComboBox: ComboBox[String] = null
   @FXML private[controller] var fluencyComboBox: ComboBox[String] = null
   @FXML private[controller] var addButton: Button = null
@@ -118,8 +130,8 @@ class LanguageController(resource: String) extends ControllerLoader with Initial
       "Basic"
     )
 
-    var list: util.ArrayList[LangRow] = new util.ArrayList[LangRow]()
-    var data: ObservableList[LangRow] = FXCollections.observableList(list)
+    val list: util.ArrayList[LangRow] = new util.ArrayList[LangRow]()
+    val data: ObservableList[LangRow] = FXCollections.observableList(list)
 
     languageComboBox.getItems().addAll(FXCollections.observableList(langList.asJava))
     languageComboBox.setValue("English")
@@ -134,6 +146,11 @@ class LanguageController(resource: String) extends ControllerLoader with Initial
     fluencyColumn.setCellValueFactory(
       new PropertyValueFactory[LangRow,String]("fluency")
     )
+
+    val removeColumn: TableColumn[LangRow, Boolean] = new TableColumn[LangRow, Boolean]("Remove")
+
+
+
 
     languageTableView.setEditable(true)
     languageTableView.setItems(data)
