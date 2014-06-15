@@ -32,7 +32,6 @@ import javafx.scene.control._
 import java.net.URL
 import java.util.ResourceBundle
 import javafx.collections.{ObservableList, FXCollections}
-import javax.security.auth.callback.Callback
 
 
 import scala.collection.JavaConverters._
@@ -42,6 +41,8 @@ import javafx.beans.property.{BooleanProperty, SimpleBooleanProperty, SimpleStri
 
 import javafx.event.{EventHandler, ActionEvent}
 import java.util
+import javafx.util.Callback
+import scala.collection.JavaConversions._
 import net.benhowell.diminutives.core.{Display, ActionEvents, Actors, Subscription}
 
 
@@ -53,7 +54,7 @@ class LangRow(l: String, f: String) {
 
   var language = new SimpleStringProperty(l)
   var fluency = new SimpleStringProperty(f)
-  var remove = new CheckBox()
+  var remove = new SimpleBooleanProperty(false)
 
   def getLanguage(): String = {
     language.get()
@@ -71,13 +72,13 @@ class LangRow(l: String, f: String) {
     fluency.set(f)
   }
 
-  def getRemove(): Boolean = {
-    remove.isSelected()
+  /*def remove() {
+    remove.get()
   }
 
   def setRemove(b: Boolean) {
-    remove.setSelected(b)
-  }
+    remove.set(b)
+  }*/
 }
 
 class LanguageController(resource: String) extends ControllerLoader with Initializable{
@@ -89,7 +90,7 @@ class LanguageController(resource: String) extends ControllerLoader with Initial
   @FXML private[controller] var languageTableView: TableView[LangRow] = null
   @FXML private[controller] var languageColumn: TableColumn[LangRow, String] = null
   @FXML private[controller] var fluencyColumn: TableColumn[LangRow, String] = null
-  @FXML private[controller] var removeColumn: TableColumn[LangRow, CheckBox] = null
+  @FXML private[controller] var removeColumn: TableColumn[LangRow, Boolean] = null
   @FXML private[controller] var languageComboBox: ComboBox[String] = null
   @FXML private[controller] var fluencyComboBox: ComboBox[String] = null
   @FXML private[controller] var addButton: Button = null
@@ -147,9 +148,20 @@ class LanguageController(resource: String) extends ControllerLoader with Initial
       new PropertyValueFactory[LangRow,String]("fluency")
     )
 
-    val removeColumn: TableColumn[LangRow, Boolean] = new TableColumn[LangRow, Boolean]("Remove")
+    /*val removeColumn: TableColumn[LangRow, Boolean] = new TableColumn[LangRow, Boolean]{
+      this.textProperty().set("Remove")
+    }
+    val c = languageTableView.getColumns.get(2).asInstanceOf[TableColumn[LangRow, CheckBox]]
+    removeColumn.setCellValueFactory(new PropertyValueFactory[LangRow, Boolean]("Remove"))
+    removeColumn.setCellFactory(CheckBoxTableCell.forTableColumn(removeColumn))*/
+
+    //removeColumn.setCellFactory(cellFactory(x => new CheckBoxCell()))
+    //removeColumn.setEditable(true)
 
 
+    //val c = languageTableView.getColumns.get(2).asInstanceOf[TableColumn[LangRow, CheckBox]]
+    //c.setCellValueFactory(new PropertyValueFactory[LangRow, CheckBox]("Remove"))
+    //c.setCellFactory(cellFactory(x => new CheckBoxCell()))
 
 
     languageTableView.setEditable(true)
@@ -162,8 +174,30 @@ class LanguageController(resource: String) extends ControllerLoader with Initial
     })
   }
 
+  class CheckBoxCell extends TableCell[LangRow, Boolean] {
+    override def updateItem(item: Boolean, empty: Boolean) {
+      super.updateItem(item, empty)
+      if(empty) {
+        setItem(false)
+      }
+      else {
+        setItem(true)
+      }
+    }
+  }
 
+  def cellFactory[S, T](func: TableColumn[S, T] => TableCell[S, T]): Callback[TableColumn[S, T], TableCell[S, T]] = {
+    callBack[TableColumn[S, T], TableCell[S, T]]((x: TableColumn[S, T]) => {
+      func(x)
+    })
+  }
 
-
+  def callBack[S, T](func: S => T): Callback[S, T] = {
+    new Callback[S, T]() {
+      def call(x: S): T = {
+        func(x)
+      }
+    }
+  }
 
 }
