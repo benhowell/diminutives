@@ -148,9 +148,8 @@ class LanguageController(resource: String) extends ControllerLoader with Initial
       new PropertyValueFactory[LangRow,String]("fluency")
     )
 
-    /*val removeColumn: TableColumn[LangRow, Boolean] = new TableColumn[LangRow, Boolean]{
-      this.textProperty().set("Remove")
-    }
+    val removeColumn: TableColumn[LangRow, Boolean] = new TableColumn[LangRow, Boolean]()
+    /*
     val c = languageTableView.getColumns.get(2).asInstanceOf[TableColumn[LangRow, CheckBox]]
     removeColumn.setCellValueFactory(new PropertyValueFactory[LangRow, Boolean]("Remove"))
     removeColumn.setCellFactory(CheckBoxTableCell.forTableColumn(removeColumn))*/
