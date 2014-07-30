@@ -134,6 +134,7 @@ class LanguageController(resource: String) extends ControllerLoader with Initial
     val list: util.ArrayList[LangRow] = new util.ArrayList[LangRow]()
     val data: ObservableList[LangRow] = FXCollections.observableList(list)
 
+
     languageComboBox.getItems().addAll(FXCollections.observableList(langList.asJava))
     languageComboBox.setValue("English")
 
@@ -154,7 +155,8 @@ class LanguageController(resource: String) extends ControllerLoader with Initial
     removeColumn.setCellValueFactory(new PropertyValueFactory[LangRow, Boolean]("Remove"))
     removeColumn.setCellFactory(CheckBoxTableCell.forTableColumn(removeColumn))*/
 
-    //removeColumn.setCellFactory(cellFactory(x => new CheckBoxCell()))
+    removeColumn.setCellFactory(cellFactory(x => new CheckBoxTableCell()))
+
     //removeColumn.setEditable(true)
 
 
@@ -173,7 +175,12 @@ class LanguageController(resource: String) extends ControllerLoader with Initial
     })
   }
 
-  class CheckBoxCell extends TableCell[LangRow, Boolean] {
+  /*class CheckBoxCell extends CheckBoxTableCell[LangRow, Boolean] {
+
+
+    final BooleanProperty delected = new SimpleBooleanProperty( false );
+
+
     override def updateItem(item: Boolean, empty: Boolean) {
       super.updateItem(item, empty)
       if(empty) {
@@ -183,7 +190,7 @@ class LanguageController(resource: String) extends ControllerLoader with Initial
         setItem(true)
       }
     }
-  }
+  }*/
 
   def cellFactory[S, T](func: TableColumn[S, T] => TableCell[S, T]): Callback[TableColumn[S, T], TableCell[S, T]] = {
     callBack[TableColumn[S, T], TableCell[S, T]]((x: TableColumn[S, T]) => {

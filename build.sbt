@@ -10,4 +10,6 @@ unmanagedJars in Compile <++= baseDirectory map { base =>
   customJars.classpath
 }
 
+libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.5-R5"
+
 fork in run := true
